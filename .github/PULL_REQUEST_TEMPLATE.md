@@ -6,6 +6,5 @@
 
 #### Reviewer Checklist
 * [ ] Test plan
-* [ ] Copyright header
 * [ ] Code formatting
 * [ ] Documentation
