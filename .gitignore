@@ -1,0 +1,14 @@
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+
+# Android Studio and Gradle
+local.properties
+*.iml
+*.iws
+*.ipr
+.idea/
+.gradle/
+build/
+gradle.properties
