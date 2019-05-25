@@ -19,16 +19,11 @@ class RegionNameMapper {
         }
     }
 
-    fun getRegionMetadata(regionName: String): ByteArray? {
-        return try {
-            val jsonObject = JSONObject()
-            jsonObject.put(JSON_FIELD_REGION_NAME, regionName)
-            val json = jsonObject.toString()
-            json.toByteArray(charset(JSON_CHARSET))
-        } catch (exception: Exception) {
-            Log.e(TAG, "Failed to encode metadata: $exception.message")
-            null
-        }
+    fun getRegionMetadata(regionName: String): ByteArray {
+        val jsonObject = JSONObject()
+        jsonObject.put(JSON_FIELD_REGION_NAME, regionName)
+        val json = jsonObject.toString()
+        return json.toByteArray(charset(JSON_CHARSET))
     }
 
     companion object {
