@@ -3,7 +3,7 @@
 Wrapper aroung mapbox offline callbacks with RxJava
 
 ## Download
-Add it in your root build.gradle at the end of repositories:
+Step1. Add this code to your project's root `build.gradle` at the end of repositories:
 ```
 allprojects {
   repositories {
@@ -13,7 +13,7 @@ allprojects {
 }
 ```
 
-Step 2. Add the dependency
+Step 2. Add the dependency in your apps `build.gradle`
 ```
 dependencies {
   implementation 'com.github.akvo:mapbox-offline-reactive:v1.0'
