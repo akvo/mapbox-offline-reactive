@@ -22,7 +22,7 @@ dependencies {
 
 ## Usage
 You will need to setup a mapbox account and get an API Key, please see [their documentation](https://docs.mapbox.com/android/maps/overview/).
-See [MainActivity](https://github.com/akvo/mapbox-offline-reactive/blob/master/app/src/main/java/org/akvo/flow/mapbox/offline/reactive/example/MainActivity.kt) for an example of how to use it.
+See [MainActivity](https://github.com/akvo/mapbox-offline-reactive/blob/master/app/src/main/java/org/akvo/flow/mapbox/offline/reactive/example/MainActivity.kt) for an example of how to use this library.
 
 ✅ Currently it's possible to:
   * create new offline areas 
