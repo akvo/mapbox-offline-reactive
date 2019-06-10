@@ -19,3 +19,6 @@ dependencies {
   implementation 'com.github.akvo:mapbox-offline-reactive:v1.0'
 }
 ```
+
+## Usage
+See [MainActivity] https://github.com/akvo/mapbox-offline-reactive/blob/master/app/src/main/java/org/akvo/flow/mapbox/offline/reactive/example/MainActivity.kt for an example of how to use it.
