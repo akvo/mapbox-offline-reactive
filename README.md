@@ -23,6 +23,10 @@ dependencies {
 ## Usage
 See [MainActivity](https://github.com/akvo/mapbox-offline-reactive/blob/master/app/src/main/java/org/akvo/flow/mapbox/offline/reactive/example/MainActivity.kt) for an example of how to use it.
 
-✅ Currently it's possible to create areas and list areas.
+✅ Currently it's possible to:
+  * create new offline areas 
+  * list existing areas.
 
-❌ Coming soon: delete areas + rename area.
+❌ Coming soon: 
+  * delete area
+  * rename area
