@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">MapboxOfflineReactive</string>
     <string name="action_settings">Settings</string>
-    <string name="akvo_mapbox_key">pk.eyJ1IjoiYWt2byIsImEiOiJzUFVwR3pJIn0.8dLa4fHG19fBwwBUJMDOSQ</string>
+    <string name="akvo_mapbox_key">ADD YOUR KEY HERE</string>
 </resources>

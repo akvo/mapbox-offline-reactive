@@ -22,7 +22,7 @@ class CreateOfflineArea(private val context: Context, private val nameMapper: Re
         val maxZoom = Math.min(zoom + ZOOM_MAX, MapboxConstants.MAXIMUM_ZOOM.toDouble())
         val definition = OfflineTilePyramidRegionDefinition(styleUrl, bounds, minZoom, maxZoom, pixelRatio)
         val metadata =
-            nameMapper.getRegionMetadata(regionName) ?: return Completable.error(Exception("metadata is null"))
+            nameMapper.getRegionMetadata(regionName)
 
         return Completable.create { emitter ->
             OfflineManager.getInstance(context).createOfflineRegion(definition, metadata,
