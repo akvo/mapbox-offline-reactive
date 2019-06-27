@@ -1,3 +1,41 @@
 package org.akvo.flow.mapbox.offline.reactive
 
-class RenameOfflineArea
+import android.content.Context
+import android.util.Log
+import com.mapbox.mapboxsdk.offline.OfflineRegion
+import io.reactivex.Completable
+
+class RenameOfflineArea(context: Context, private val nameMapper: RegionNameMapper) {
+
+    private val regionsLister = OfflineRegionsLister(context)
+
+    fun execute(regionId: Long, newName: String): Completable {
+        return regionsLister.getRegionsList().flatMapCompletable { renameArea(it, regionId, newName) }
+    }
+
+    private fun renameArea(regions: Array<OfflineRegion>, regionId: Long, newName: String): Completable {
+        val region = regions.first { regionId == it.id }
+        val metadata = nameMapper.getRegionMetadata(newName)
+
+        return Completable.create { emitter ->
+            region.updateMetadata(metadata, object : OfflineRegion.OfflineRegionUpdateMetadataCallback {
+                override fun onUpdate(metadata: ByteArray?) {
+                    if (!emitter.isDisposed) {
+                        emitter.onComplete()
+                    }
+                }
+
+                override fun onError(error: String?) {
+                    Log.e(TAG, "Error: $error")
+                    if (!emitter.isDisposed) {
+                        emitter.onError(Exception(error))
+                    }
+                }
+            })
+        }
+    }
+
+    companion object {
+        private const val TAG = "RenameOfflineArea"
+    }
+}

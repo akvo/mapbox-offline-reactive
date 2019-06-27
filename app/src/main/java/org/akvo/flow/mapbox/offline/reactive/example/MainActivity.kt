@@ -27,8 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // TODO: remove key
-        Mapbox.getInstance(this, getString(R.string.akvo_mapbox_key))
+        Mapbox.getInstance(this, "pk.eyJ1IjoiYWt2byIsImEiOiJzUFVwR3pJIn0.8dLa4fHG19fBwwBUJMDOSQ")
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         areasList.layoutManager = LinearLayoutManager(this)
