@@ -1,6 +1,7 @@
 package org.akvo.flow.mapbox.offline.reactive.example
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,12 +19,14 @@ import kotlinx.android.synthetic.main.content_main.*
 import org.akvo.flow.mapbox.offline.reactive.CreateOfflineArea
 import org.akvo.flow.mapbox.offline.reactive.GetOfflineAreasList
 import org.akvo.flow.mapbox.offline.reactive.RegionNameMapper
+import org.akvo.flow.mapbox.offline.reactive.RenameOfflineArea
+import java.util.concurrent.TimeUnit
 import kotlin.random.Random.Default.nextInt
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AreaListener {
 
     private val disposables = CompositeDisposable()
-    private val adapter = AreasAdapter(nameMapper = RegionNameMapper())
+    private val adapter = AreasAdapter(nameMapper = RegionNameMapper(), areaListener = this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +35,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         areasList.layoutManager = LinearLayoutManager(this)
         areasList.adapter = adapter
-
         loadAreas()
 
         fab.setOnClickListener {
-            createArea()
+            fab.hide()
+            createInitialAreas()
         }
     }
 
@@ -45,16 +48,22 @@ class MainActivity : AppCompatActivity() {
             .subscribeWith(object : DisposableSingleObserver<List<Pair<OfflineRegion, OfflineRegionStatus>>>() {
                 override fun onSuccess(regions: List<Pair<OfflineRegion, OfflineRegionStatus>>) {
                     adapter.setRegions(regions)
+                    if (regions.isEmpty()) {
+                        fab.show()
+                    } else {
+                        fab.hide()
+                    }
                 }
 
                 override fun onError(e: Throwable) {
                     Snackbar.make(areasList, "Error loading areas", Snackbar.LENGTH_LONG).show()
+                    fab.show()
                 }
             })
         disposables.add(subscribeWith)
     }
 
-    private fun createArea() {
+    private fun createInitialAreas() {
         val bounds = LatLngBounds.Builder()
             .include(LatLng(37.7897, -119.5073)) // Northeast
             .include(LatLng(37.6744, -119.6815)) // Southwest
@@ -62,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         val url = "mapbox://styles/mapbox/light-v10"
         val pixelRatio = resources.displayMetrics.density
         val zoom = 14.0
-        val regionName = regionName()
+        val regionName = randomName()
         val createOfflineArea = CreateOfflineArea(this.applicationContext, RegionNameMapper())
 
         val subscribeWith = createOfflineArea.execute(url, bounds, pixelRatio, zoom, regionName)
@@ -70,6 +79,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onComplete() {
                     Log.d(TAG, "Region created: $regionName")
+                    loadAreas()
                 }
 
                 override fun onError(e: Throwable) {
@@ -80,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         disposables.add(subscribeWith)
     }
 
-    private fun regionName(): String {
+    private fun randomName(): String {
         return "region-${nextInt(0, 1000)}"
     }
 
@@ -89,6 +99,22 @@ class MainActivity : AppCompatActivity() {
         if (!disposables.isDisposed) {
             disposables.dispose()
         }
+    }
+
+    override fun rename(id: Long) {
+        val subscribeWith = RenameOfflineArea(this, RegionNameMapper()).execute(id, randomName())
+            .subscribeWith(object : DisposableCompletableObserver() {
+                override fun onComplete() {
+                    Log.d(TAG, "Region renamed")
+                    loadAreas()
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.e(TAG, e.message, e)
+                }
+
+            })
+        disposables.add(subscribeWith)
     }
 
     companion object {
