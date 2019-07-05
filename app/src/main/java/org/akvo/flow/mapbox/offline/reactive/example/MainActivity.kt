@@ -16,6 +16,7 @@ import io.reactivex.observers.DisposableSingleObserver
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.akvo.flow.mapbox.offline.reactive.CreateOfflineArea
+import org.akvo.flow.mapbox.offline.reactive.DeleteOfflineArea
 import org.akvo.flow.mapbox.offline.reactive.GetOfflineAreasList
 import org.akvo.flow.mapbox.offline.reactive.RegionNameMapper
 import org.akvo.flow.mapbox.offline.reactive.RenameOfflineArea
@@ -119,6 +120,21 @@ class MainActivity : AppCompatActivity(), AreaListener {
             .subscribeWith(object : DisposableCompletableObserver() {
                 override fun onComplete() {
                     Log.d(TAG, "Region renamed")
+                    loadAreas()
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.e(TAG, e.message, e)
+                }
+            })
+        disposables.add(subscribeWith)
+    }
+
+    override fun delete(id: Long) {
+        val subscribeWith = DeleteOfflineArea(this).execute(id)
+            .subscribeWith(object : DisposableCompletableObserver() {
+                override fun onComplete() {
+                    Log.d(TAG, "Region deleted")
                     loadAreas()
                 }
 

@@ -46,6 +46,10 @@ class AreasAdapter(
             textView.text = nameMapper.getRegionName(offlineArea.first)
             textView.tag = offlineArea.first.id
             textView.setOnClickListener { areaListener?.rename(textView.tag as Long) }
+            textView.setOnLongClickListener {
+                areaListener?.delete(textView.tag as Long)
+                return@setOnLongClickListener true
+            }
         }
     }
 }
@@ -53,4 +57,6 @@ class AreasAdapter(
 interface AreaListener {
 
     fun rename(id: Long)
+
+    fun delete(id: Long)
 }
