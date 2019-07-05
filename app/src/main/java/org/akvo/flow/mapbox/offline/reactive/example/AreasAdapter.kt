@@ -30,6 +30,7 @@ class AreasAdapter(
     }
 
     fun setRegions(pairs: List<Pair<OfflineRegion, OfflineRegionStatus>>) {
+        this.pairs.clear()
         this.pairs.addAll(pairs)
         notifyDataSetChanged()
     }
