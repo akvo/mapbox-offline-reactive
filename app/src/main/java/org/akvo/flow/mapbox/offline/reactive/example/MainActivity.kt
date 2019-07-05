@@ -1,7 +1,6 @@
 package org.akvo.flow.mapbox.offline.reactive.example
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,8 +19,12 @@ import org.akvo.flow.mapbox.offline.reactive.CreateOfflineArea
 import org.akvo.flow.mapbox.offline.reactive.GetOfflineAreasList
 import org.akvo.flow.mapbox.offline.reactive.RegionNameMapper
 import org.akvo.flow.mapbox.offline.reactive.RenameOfflineArea
-import java.lang.Math.*
-import java.util.concurrent.TimeUnit
+import java.lang.Math.asin
+import java.lang.Math.atan2
+import java.lang.Math.cos
+import java.lang.Math.sin
+import java.lang.Math.toDegrees
+import java.lang.Math.toRadians
 import kotlin.random.Random.Default.nextInt
 
 class MainActivity : AppCompatActivity(), AreaListener {
@@ -122,7 +125,6 @@ class MainActivity : AppCompatActivity(), AreaListener {
                 override fun onError(e: Throwable) {
                     Log.e(TAG, e.message, e)
                 }
-
             })
         disposables.add(subscribeWith)
     }
