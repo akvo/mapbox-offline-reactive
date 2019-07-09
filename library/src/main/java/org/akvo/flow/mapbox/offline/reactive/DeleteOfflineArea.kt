@@ -5,17 +5,15 @@ import android.util.Log
 import com.mapbox.mapboxsdk.offline.OfflineRegion
 import io.reactivex.Completable
 
-class DeleteOfflineArea(private val context: Context) {
+class DeleteOfflineArea(context: Context) {
 
-    private val regionsLister = OfflineRegionsLister(context)
+    private val regionById = RegionById(context)
 
     fun execute(regionId: Long): Completable {
-        return regionsLister.getRegionsList().flatMapCompletable { deleteArea(it, regionId) }
+        return regionById.getOfflineRegion(regionId).flatMapCompletable { deleteArea(it) }
     }
 
-    private fun deleteArea(regions: Array<OfflineRegion>, regionId: Long): Completable {
-        val region = regions.first { regionId == it.id }
-
+    private fun deleteArea(region: OfflineRegion): Completable {
         return Completable.create { emitter ->
             region.delete(object : OfflineRegion.OfflineRegionDeleteCallback {
                 override fun onDelete() {

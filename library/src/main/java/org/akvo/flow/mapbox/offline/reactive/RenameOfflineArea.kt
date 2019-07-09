@@ -7,14 +7,13 @@ import io.reactivex.Completable
 
 class RenameOfflineArea(context: Context, private val nameMapper: RegionNameMapper) {
 
-    private val regionsLister = OfflineRegionsLister(context)
+    private val regionById = RegionById(context)
 
     fun execute(regionId: Long, newName: String): Completable {
-        return regionsLister.getRegionsList().flatMapCompletable { renameArea(it, regionId, newName) }
+        return regionById.getOfflineRegion(regionId).flatMapCompletable { renameArea(it, newName) }
     }
 
-    private fun renameArea(regions: Array<OfflineRegion>, regionId: Long, newName: String): Completable {
-        val region = regions.first { regionId == it.id }
+    private fun renameArea(region: OfflineRegion, newName: String): Completable {
         val metadata = nameMapper.getRegionMetadata(newName)
 
         return Completable.create { emitter ->
