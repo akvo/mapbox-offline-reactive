@@ -19,7 +19,7 @@ import org.akvo.flow.mapbox.offline.reactive.CreateOfflineRegion
 import org.akvo.flow.mapbox.offline.reactive.DeleteOfflineRegion
 import org.akvo.flow.mapbox.offline.reactive.GetOfflineRegions
 import org.akvo.flow.mapbox.offline.reactive.RegionNameMapper
-import org.akvo.flow.mapbox.offline.reactive.RenameOfflineArea
+import org.akvo.flow.mapbox.offline.reactive.RenameOfflineRegion
 import java.lang.Math.asin
 import java.lang.Math.atan2
 import java.lang.Math.cos
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity(), AreaListener {
     }
 
     override fun rename(id: Long) {
-        val subscribeWith = RenameOfflineArea(this, RegionNameMapper()).execute(id, randomName())
+        val subscribeWith = RenameOfflineRegion(this, RegionNameMapper()).execute(id, randomName())
             .subscribeWith(object : DisposableCompletableObserver() {
                 override fun onComplete() {
                     Log.d(TAG, "Region renamed")

@@ -5,7 +5,7 @@ import android.util.Log
 import com.mapbox.mapboxsdk.offline.OfflineRegion
 import io.reactivex.Completable
 
-class RenameOfflineArea(context: Context, private val nameMapper: RegionNameMapper) {
+class RenameOfflineRegion(context: Context, private val nameMapper: RegionNameMapper) {
 
     private val regionById = RegionById(context)
 
@@ -35,6 +35,6 @@ class RenameOfflineArea(context: Context, private val nameMapper: RegionNameMapp
     }
 
     companion object {
-        private const val TAG = "RenameOfflineArea"
+        private const val TAG = "RenameOfflineRegion"
     }
 }

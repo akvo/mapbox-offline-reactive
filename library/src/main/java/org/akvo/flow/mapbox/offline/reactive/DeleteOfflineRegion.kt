@@ -33,6 +33,6 @@ class DeleteOfflineRegion(context: Context) {
     }
 
     companion object {
-        private const val TAG = "RenameOfflineArea"
+        private const val TAG = "DeleteOfflineRegion"
     }
 }
