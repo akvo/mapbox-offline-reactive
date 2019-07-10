@@ -15,9 +15,9 @@ import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import org.akvo.flow.mapbox.offline.reactive.CreateOfflineArea
-import org.akvo.flow.mapbox.offline.reactive.DeleteOfflineArea
-import org.akvo.flow.mapbox.offline.reactive.GetOfflineAreasList
+import org.akvo.flow.mapbox.offline.reactive.CreateOfflineRegion
+import org.akvo.flow.mapbox.offline.reactive.DeleteOfflineRegion
+import org.akvo.flow.mapbox.offline.reactive.GetOfflineRegions
 import org.akvo.flow.mapbox.offline.reactive.RegionNameMapper
 import org.akvo.flow.mapbox.offline.reactive.RenameOfflineArea
 import java.lang.Math.asin
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), AreaListener {
     }
 
     private fun loadAreas() {
-        val subscribeWith = GetOfflineAreasList(this).execute()
+        val subscribeWith = GetOfflineRegions(this).execute()
             .subscribeWith(object : DisposableSingleObserver<List<Pair<OfflineRegion, OfflineRegionStatus>>>() {
                 override fun onSuccess(regions: List<Pair<OfflineRegion, OfflineRegionStatus>>) {
                     adapter.setRegions(regions)
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), AreaListener {
             val pixelRatio = resources.displayMetrics.density
             val zoom = 14.0
             val regionName = "${latLng.latitude}, ${latLng.longitude}"
-            val createOfflineArea = CreateOfflineArea(this.applicationContext, RegionNameMapper())
+            val createOfflineArea = CreateOfflineRegion(this.applicationContext, RegionNameMapper())
 
             val subscribeWith = createOfflineArea.execute(url, bounds, pixelRatio, zoom, regionName)
                 .subscribeWith(object : DisposableCompletableObserver() {
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity(), AreaListener {
     }
 
     override fun delete(id: Long) {
-        val subscribeWith = DeleteOfflineArea(this).execute(id)
+        val subscribeWith = DeleteOfflineRegion(this).execute(id)
             .subscribeWith(object : DisposableCompletableObserver() {
                 override fun onComplete() {
                     Log.d(TAG, "Region deleted")

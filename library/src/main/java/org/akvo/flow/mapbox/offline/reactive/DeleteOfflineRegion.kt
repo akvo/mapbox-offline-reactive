@@ -5,7 +5,7 @@ import android.util.Log
 import com.mapbox.mapboxsdk.offline.OfflineRegion
 import io.reactivex.Completable
 
-class DeleteOfflineArea(context: Context) {
+class DeleteOfflineRegion(context: Context) {
 
     private val regionById = RegionById(context)
 

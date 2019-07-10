@@ -6,7 +6,7 @@ import com.mapbox.mapboxsdk.offline.OfflineRegionStatus
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class GetOfflineAreasList(context: Context) {
+class GetOfflineRegions(context: Context) {
     private val regionsLister = OfflineRegionsLister(context)
 
     fun execute(): Single<List<Pair<OfflineRegion, OfflineRegionStatus>>> {

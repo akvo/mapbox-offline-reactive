@@ -11,7 +11,7 @@ import io.reactivex.Completable
 import kotlin.math.max
 import kotlin.math.min
 
-class CreateOfflineArea(private val context: Context, private val nameMapper: RegionNameMapper) {
+class CreateOfflineRegion(private val context: Context, private val nameMapper: RegionNameMapper) {
 
     fun execute(
         styleUrl: String,
@@ -48,7 +48,7 @@ class CreateOfflineArea(private val context: Context, private val nameMapper: Re
     }
 
     companion object {
-        private const val TAG = "CreateOfflineArea"
+        private const val TAG = "CreateOfflineRegion"
         private const val ZOOM_MAX = 2
     }
 }
