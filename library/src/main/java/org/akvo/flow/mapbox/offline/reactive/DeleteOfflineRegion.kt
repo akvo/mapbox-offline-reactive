@@ -10,7 +10,7 @@ class DeleteOfflineRegion(context: Context) {
     private val regionById = RegionById(context)
 
     fun execute(regionId: Long): Completable {
-        return regionById.getOfflineRegion(regionId).flatMapCompletable { deleteArea(it) }
+        return regionById.findRegion(regionId).flatMapCompletable { deleteArea(it) }
     }
 
     private fun deleteArea(region: OfflineRegion): Completable {

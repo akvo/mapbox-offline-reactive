@@ -13,13 +13,6 @@ import com.mapbox.mapboxsdk.offline.OfflineRegionStatus
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.observers.DisposableSingleObserver
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
-import org.akvo.flow.mapbox.offline.reactive.CreateOfflineRegion
-import org.akvo.flow.mapbox.offline.reactive.DeleteOfflineRegion
-import org.akvo.flow.mapbox.offline.reactive.GetOfflineRegions
-import org.akvo.flow.mapbox.offline.reactive.RegionNameMapper
-import org.akvo.flow.mapbox.offline.reactive.RenameOfflineRegion
 import java.lang.Math.asin
 import java.lang.Math.atan2
 import java.lang.Math.cos
@@ -27,6 +20,13 @@ import java.lang.Math.sin
 import java.lang.Math.toDegrees
 import java.lang.Math.toRadians
 import kotlin.random.Random.Default.nextInt
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import org.akvo.flow.mapbox.offline.reactive.CreateOfflineRegion
+import org.akvo.flow.mapbox.offline.reactive.DeleteOfflineRegion
+import org.akvo.flow.mapbox.offline.reactive.GetOfflineRegions
+import org.akvo.flow.mapbox.offline.reactive.RegionNameMapper
+import org.akvo.flow.mapbox.offline.reactive.RenameOfflineRegion
 
 class MainActivity : AppCompatActivity(), AreaListener {
 

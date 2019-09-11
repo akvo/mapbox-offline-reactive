@@ -3,7 +3,6 @@ package org.akvo.flow.mapbox.offline.reactive.example
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-
 import androidx.recyclerview.widget.RecyclerView
 import com.mapbox.mapboxsdk.offline.OfflineRegion
 import com.mapbox.mapboxsdk.offline.OfflineRegionStatus
