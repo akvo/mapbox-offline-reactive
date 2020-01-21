@@ -16,7 +16,7 @@ allprojects {
 Step 2. Add the dependency in your apps `build.gradle`
 ```
 dependencies {
-  implementation 'com.github.akvo:mapbox-offline-reactive:v1.0'
+  implementation 'com.github.akvo:mapbox-offline-reactive:v1.2.0'
 }
 ```
 
