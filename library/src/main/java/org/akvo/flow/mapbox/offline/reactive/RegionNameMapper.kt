@@ -1,7 +1,6 @@
 package org.akvo.flow.mapbox.offline.reactive
 
 import android.util.Log
-
 import com.mapbox.mapboxsdk.offline.OfflineRegion
 import org.json.JSONObject
 

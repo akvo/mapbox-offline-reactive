@@ -3,7 +3,6 @@ package org.akvo.flow.mapbox.offline.reactive.example
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-
 import androidx.recyclerview.widget.RecyclerView
 import com.mapbox.mapboxsdk.offline.OfflineRegion
 import com.mapbox.mapboxsdk.offline.OfflineRegionStatus
@@ -46,6 +45,10 @@ class AreasAdapter(
             textView.text = nameMapper.getRegionName(offlineArea.first)
             textView.tag = offlineArea.first.id
             textView.setOnClickListener { areaListener?.rename(textView.tag as Long) }
+            textView.setOnLongClickListener {
+                areaListener?.delete(textView.tag as Long)
+                return@setOnLongClickListener true
+            }
         }
     }
 }
@@ -53,4 +56,6 @@ class AreasAdapter(
 interface AreaListener {
 
     fun rename(id: Long)
+
+    fun delete(id: Long)
 }

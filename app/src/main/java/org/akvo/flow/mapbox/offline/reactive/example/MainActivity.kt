@@ -13,12 +13,6 @@ import com.mapbox.mapboxsdk.offline.OfflineRegionStatus
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.observers.DisposableSingleObserver
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
-import org.akvo.flow.mapbox.offline.reactive.CreateOfflineArea
-import org.akvo.flow.mapbox.offline.reactive.GetOfflineAreasList
-import org.akvo.flow.mapbox.offline.reactive.RegionNameMapper
-import org.akvo.flow.mapbox.offline.reactive.RenameOfflineArea
 import java.lang.Math.asin
 import java.lang.Math.atan2
 import java.lang.Math.cos
@@ -26,6 +20,13 @@ import java.lang.Math.sin
 import java.lang.Math.toDegrees
 import java.lang.Math.toRadians
 import kotlin.random.Random.Default.nextInt
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import org.akvo.flow.mapbox.offline.reactive.CreateOfflineRegion
+import org.akvo.flow.mapbox.offline.reactive.DeleteOfflineRegion
+import org.akvo.flow.mapbox.offline.reactive.GetOfflineRegions
+import org.akvo.flow.mapbox.offline.reactive.RegionNameMapper
+import org.akvo.flow.mapbox.offline.reactive.RenameOfflineRegion
 
 class MainActivity : AppCompatActivity(), AreaListener {
 
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity(), AreaListener {
     }
 
     private fun loadAreas() {
-        val subscribeWith = GetOfflineAreasList(this).execute()
+        val subscribeWith = GetOfflineRegions(this).execute()
             .subscribeWith(object : DisposableSingleObserver<List<Pair<OfflineRegion, OfflineRegionStatus>>>() {
                 override fun onSuccess(regions: List<Pair<OfflineRegion, OfflineRegionStatus>>) {
                     adapter.setRegions(regions)
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity(), AreaListener {
             val pixelRatio = resources.displayMetrics.density
             val zoom = 14.0
             val regionName = "${latLng.latitude}, ${latLng.longitude}"
-            val createOfflineArea = CreateOfflineArea(this.applicationContext, RegionNameMapper())
+            val createOfflineArea = CreateOfflineRegion(this.applicationContext, RegionNameMapper())
 
             val subscribeWith = createOfflineArea.execute(url, bounds, pixelRatio, zoom, regionName)
                 .subscribeWith(object : DisposableCompletableObserver() {
@@ -115,10 +116,25 @@ class MainActivity : AppCompatActivity(), AreaListener {
     }
 
     override fun rename(id: Long) {
-        val subscribeWith = RenameOfflineArea(this, RegionNameMapper()).execute(id, randomName())
+        val subscribeWith = RenameOfflineRegion(this, RegionNameMapper()).execute(id, randomName())
             .subscribeWith(object : DisposableCompletableObserver() {
                 override fun onComplete() {
                     Log.d(TAG, "Region renamed")
+                    loadAreas()
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.e(TAG, e.message, e)
+                }
+            })
+        disposables.add(subscribeWith)
+    }
+
+    override fun delete(id: Long) {
+        val subscribeWith = DeleteOfflineRegion(this).execute(id)
+            .subscribeWith(object : DisposableCompletableObserver() {
+                override fun onComplete() {
+                    Log.d(TAG, "Region deleted")
                     loadAreas()
                 }
 
