@@ -8,6 +8,8 @@ import com.mapbox.mapboxsdk.offline.OfflineManager
 import com.mapbox.mapboxsdk.offline.OfflineRegion
 import com.mapbox.mapboxsdk.offline.OfflineTilePyramidRegionDefinition
 import io.reactivex.Completable
+import kotlin.math.max
+import kotlin.math.min
 
 class CreateOfflineArea(private val context: Context, private val nameMapper: RegionNameMapper) {
 
@@ -18,11 +20,10 @@ class CreateOfflineArea(private val context: Context, private val nameMapper: Re
         zoom: Double,
         regionName: String
     ): Completable {
-        val minZoom = Math.max(zoom - ZOOM_MAX, MapboxConstants.MINIMUM_ZOOM.toDouble())
-        val maxZoom = Math.min(zoom + ZOOM_MAX, MapboxConstants.MAXIMUM_ZOOM.toDouble())
+        val minZoom = max(zoom - ZOOM_MAX, MapboxConstants.MINIMUM_ZOOM.toDouble())
+        val maxZoom = min(zoom + ZOOM_MAX, MapboxConstants.MAXIMUM_ZOOM.toDouble())
         val definition = OfflineTilePyramidRegionDefinition(styleUrl, bounds, minZoom, maxZoom, pixelRatio)
-        val metadata =
-            nameMapper.getRegionMetadata(regionName)
+        val metadata = nameMapper.getRegionMetadata(regionName)
 
         return Completable.create { emitter ->
             OfflineManager.getInstance(context).createOfflineRegion(definition, metadata,
