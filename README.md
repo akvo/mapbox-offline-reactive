@@ -26,8 +26,6 @@ See [MainActivity](https://github.com/akvo/mapbox-offline-reactive/blob/master/a
 
 ✅ Currently it's possible to:
   * create new offline areas 
-  * list existing areas.
-
-❌ Coming soon: 
+  * list existing areas
   * delete area
   * rename area
