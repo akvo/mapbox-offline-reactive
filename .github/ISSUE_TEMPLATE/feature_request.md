@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for the akvo-flow-mobile app
+about: Suggest an idea for the mapbox-offline-reactive library
 title: 'Feature: '
 labels: ''
 assignees: ''
