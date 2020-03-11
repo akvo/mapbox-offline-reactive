@@ -2,7 +2,7 @@
 ## Mapbox Offline Reactive
 
 ### Why this library
-In [our Flow mobile app](https://github.com/akvo/akvo-flow-mobile), we use [Mapbox](https://github.com/mapbox/mapbox-gl-native-android) to display maps. Since our app is used in remote areas we needed to provide an offline map functionality. We allow users to select small areas to download for later offline use. Here is a list of fonctionalities we offer our users for the offline maps.
+In [our Flow mobile app](https://github.com/akvo/akvo-flow-mobile), we use [Mapbox](https://github.com/mapbox/mapbox-gl-native-android) to display maps. Since our app is used in remote areas we needed to provide an offline map functionality. We allow users to select small areas to download for later offline use. Here is a list of fonctionalities for the offline maps:
   * View a list of downloaded offline areas with their name
   * Rename an offline area
   * Delete an area
@@ -134,3 +134,7 @@ The sample project that comes with the library shows most operations available w
             })
         disposables.add(subscribeWith)
 ```
+
+### Further
+The Mapbox team has also another library, the [offline plugin](https://docs.mapbox.com/android/plugins/overview/offline/) which allows to download maps using a background service but for our case it was not convenient as we wanted more control over how the maps were downloaded.
+Since the begginning of writing this library, [Kotlin couroutines](https://developer.android.com/kotlin/coroutines) have been released and may be a better option instead of RXJava
