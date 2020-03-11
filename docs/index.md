@@ -57,6 +57,49 @@ In our app we try to use [Clean Architecture](https://blog.cleancoder.com/uncle-
 The sample project that comes with the library shows most operations available with the library.
 
 #### Create area
+
+```
+  //create some dummy area bounds
+  val bounds = LatLngBounds.Builder()
+                .include(computeOffset(latLng, 500.0, 45.0)) // Northeast
+                .include(computeOffset(latLng, 500.0, 225.0)) // Southwest
+                .build()
+            val url = "mapbox://styles/mapbox/light-v10"
+            val pixelRatio = resources.displayMetrics.density
+            val zoom = 14.0
+            val regionName = "${latLng.latitude}, ${latLng.longitude}"
+            val createOfflineArea = CreateOfflineRegion(this.applicationContext, RegionNameMapper())
+
+            val subscribeWith = createOfflineArea.execute(url, bounds, pixelRatio, zoom, regionName)
+                .subscribeWith(object : DisposableCompletableObserver() {
+
+                    override fun onComplete() {
+                        Log.d(TAG, "Region created: $regionName")
+                       	//update UI
+                    }
+
+                    override fun onError(e: Throwable) {
+                        Log.e(TAG, e.message, e)
+                    }
+                })
+
+            disposables.add(subscribeWith)
+```
 #### Rename area
 #### Delete Area
+
 #### List all areas
+
+```
+ val subscribeWith = GetOfflineRegions(this).execute()
+            .subscribeWith(object : DisposableSingleObserver<List<Pair<OfflineRegion, OfflineRegionStatus>>>() {
+                override fun onSuccess(regions: List<Pair<OfflineRegion, OfflineRegionStatus>>) {
+                   // use regions
+                }
+
+                override fun onError(e: Throwable) {
+                    // display error
+                }
+            })
+        disposables.add(subscribeWith)
+```
