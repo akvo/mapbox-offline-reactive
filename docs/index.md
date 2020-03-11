@@ -1,8 +1,8 @@
 
 ## Mapbox Offline Reactive
 
-### Why this library
-In [our Flow mobile app](https://github.com/akvo/akvo-flow-mobile), we use [Mapbox](https://github.com/mapbox/mapbox-gl-native-android) to display maps. Since our app is used in remote areas we needed to provide an offline map functionality. We allow users to select small areas to download for later offline use. Here is a list of fonctionalities for the offline maps:
+### Why this library?
+In [our Flow mobile app](https://github.com/akvo/akvo-flow-mobile), we use [Mapbox](https://github.com/mapbox/mapbox-gl-native-android) to display maps. Since the app is used in remote areas, we needed to provide an offline map functionality. We allow users to select small areas to download for later offline use. Here is a list of functionalities for the offline maps:
   * View a list of downloaded offline areas with their name
   * Rename an offline area
   * Delete an area
@@ -23,7 +23,7 @@ object : OfflineManager.CreateOfflineRegionCallback {
  
 				// Calculate the download percentage
 				val percentage = if (status.requiredResourceCount >= 0)
-				    100.0 * status.completedResourceCount /status.requiredResourceCount else 0.0
+				    100.0 * status.completedResourceCount / status.requiredResourceCount else 0.0
  
 				if (status.isComplete) {
 				    // Download complete
@@ -59,82 +59,83 @@ The sample project that comes with the library shows most operations available w
 #### Create area
 
 ```
-  //create some dummy area bounds
-  val bounds = LatLngBounds.Builder()
-                .include(computeOffset(latLng, 500.0, 45.0)) // Northeast
-                .include(computeOffset(latLng, 500.0, 225.0)) // Southwest
-                .build()
-            val url = "mapbox://styles/mapbox/light-v10"
-            val pixelRatio = resources.displayMetrics.density
-            val zoom = 14.0
-            val regionName = "${latLng.latitude}, ${latLng.longitude}"
-            val createOfflineArea = CreateOfflineRegion(this.applicationContext, RegionNameMapper())
+//create some dummy area bounds
+val bounds = LatLngBounds.Builder()
+    .include(computeOffset(latLng, 500.0, 45.0)) // Northeast
+    .include(computeOffset(latLng, 500.0, 225.0)) // Southwest
+    .build()
+val url = "mapbox://styles/mapbox/light-v10"
+val pixelRatio = resources.displayMetrics.density
+val zoom = 14.0
+val regionName = "${latLng.latitude}, ${latLng.longitude}"
+val createOfflineArea = CreateOfflineRegion(this.applicationContext, RegionNameMapper())
 
-            val subscribeWith = createOfflineArea.execute(url, bounds, pixelRatio, zoom, regionName)
-                .subscribeWith(object : DisposableCompletableObserver() {
+val subscribeWith = createOfflineArea.execute(url, bounds, pixelRatio, zoom, regionName)
+    .subscribeWith(object : DisposableCompletableObserver() {
 
-                    override fun onComplete() {
-                        Log.d(TAG, "Region created: $regionName")
-                       	//update UI
-                    }
+        override fun onComplete() {
+            Log.d(TAG, "Region created: $regionName")
+            //update UI
+        }
 
-                    override fun onError(e: Throwable) {
-                        Log.e(TAG, e.message, e)
-                    }
-                })
+        override fun onError(e: Throwable) {
+            Log.e(TAG, e.message, e)
+        }
+    })
 
-            disposables.add(subscribeWith)
+disposables.add(subscribeWith)
 ```
+
 #### Rename area
 
 ```
- val subscribeWith = RenameOfflineRegion(this, RegionNameMapper()).execute(id, randomName())
-            .subscribeWith(object : DisposableCompletableObserver() {
-                override fun onComplete() {
-                    Log.d(TAG, "Region renamed")
-                    //update UI
-                }
+val subscribeWith = RenameOfflineRegion(this, RegionNameMapper()).execute(id, randomName())
+    .subscribeWith(object : DisposableCompletableObserver() {
+        override fun onComplete() {
+            Log.d(TAG, "Region renamed")
+            //update UI
+        }
 
-                override fun onError(e: Throwable) {
-                    Log.e(TAG, e.message, e)
-                }
-            })
-        disposables.add(subscribeWith)
+        override fun onError(e: Throwable) {
+            Log.e(TAG, e.message, e)
+        }
+    })
+disposables.add(subscribeWith)
 ```
 
 #### Delete Area
 
 ```
- val subscribeWith = DeleteOfflineRegion(this).execute(id)
-            .subscribeWith(object : DisposableCompletableObserver() {
-                override fun onComplete() {
-                    Log.d(TAG, "Region deleted")
-                    //Update UI
-                }
+val subscribeWith = DeleteOfflineRegion(this).execute(id)
+    .subscribeWith(object : DisposableCompletableObserver() {
+        override fun onComplete() {
+            Log.d(TAG, "Region deleted")
+            //Update UI
+        }
 
-                override fun onError(e: Throwable) {
-                    Log.e(TAG, e.message, e)
-                }
-            })
-        disposables.add(subscribeWith)
+        override fun onError(e: Throwable) {
+            Log.e(TAG, e.message, e)
+        }
+    })
+disposables.add(subscribeWith)
 ```
 
 #### List all areas
 
 ```
- val subscribeWith = GetOfflineRegions(this).execute()
-            .subscribeWith(object : DisposableSingleObserver<List<Pair<OfflineRegion, OfflineRegionStatus>>>() {
-                override fun onSuccess(regions: List<Pair<OfflineRegion, OfflineRegionStatus>>) {
-                   // use regions
-                }
+val subscribeWith = GetOfflineRegions(this).execute()
+    .subscribeWith(object : DisposableSingleObserver<List<Pair<OfflineRegion, OfflineRegionStatus>>>() {
+        override fun onSuccess(regions: List<Pair<OfflineRegion, OfflineRegionStatus>>) {
+            // use regions
+        }
 
-                override fun onError(e: Throwable) {
-                    // display error
-                }
-            })
-        disposables.add(subscribeWith)
+        override fun onError(e: Throwable) {
+            // display error
+        }
+    })
+disposables.add(subscribeWith)
 ```
 
 ### Going Further
-The Mapbox team has also another library, the [offline plugin](https://docs.mapbox.com/android/plugins/overview/offline/) which allows to download maps using a background service but for our case it was not convenient as we wanted more control over how the maps were downloaded.
-Since the begginning of writing this library, [Kotlin couroutines](https://developer.android.com/kotlin/coroutines) have been released and may be a better option instead of RXJava
+The Mapbox team has also another library, the [offline plugin](https://docs.mapbox.com/android/plugins/overview/offline/) which allows to download maps using a background service but for our case it was not convenient, as we wanted more control over how the maps were downloaded.
+Since the begginning of writing this library, [Kotlin couroutines](https://developer.android.com/kotlin/coroutines) have been released and may be a better option instead of RXJava.
