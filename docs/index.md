@@ -86,7 +86,38 @@ The sample project that comes with the library shows most operations available w
             disposables.add(subscribeWith)
 ```
 #### Rename area
+
+```
+ val subscribeWith = RenameOfflineRegion(this, RegionNameMapper()).execute(id, randomName())
+            .subscribeWith(object : DisposableCompletableObserver() {
+                override fun onComplete() {
+                    Log.d(TAG, "Region renamed")
+                    //update UI
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.e(TAG, e.message, e)
+                }
+            })
+        disposables.add(subscribeWith)
+```
+
 #### Delete Area
+
+```
+ val subscribeWith = DeleteOfflineRegion(this).execute(id)
+            .subscribeWith(object : DisposableCompletableObserver() {
+                override fun onComplete() {
+                    Log.d(TAG, "Region deleted")
+                    //Update UI
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.e(TAG, e.message, e)
+                }
+            })
+        disposables.add(subscribeWith)
+```
 
 #### List all areas
 
