@@ -26,7 +26,7 @@ If applicable, add screenshots to help explain your problem.
 **Device (please complete the following information):**
  - Device model: [e.g. Pixel 3 XL]
  - OS: [e.g. Android 10]
- - App Version [e.g. 2.9.0]
+ - Library Version [e.g. 1.2.0]
 
 **Additional context**
 Add any other context about the problem here.
