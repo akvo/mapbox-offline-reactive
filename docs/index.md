@@ -51,7 +51,7 @@ object : OfflineManager.CreateOfflineRegionCallback {
 	}
 })
 ```
-In our app we try to use [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) with MVP pattern. We use RXJava and UseCases for async operations. As you can see, the callbacks above could not be easily added. Also here we have 2 chained callbacks for creating an area. We also want to unsubscribe if the user leaves that screen. Another reason, is an operation like rename or select, we have the area id but in mapbox you can list all areas, not just one so we needed a way to abstract this.
+In [Akvo Flow App](https://github.com/akvo/akvo-flow-mobile), we try to use [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) with MVP pattern. We use RXJava and UseCases for async operations. As you can see, the callbacks above could not be easily added. Also here we have 2 chained callbacks for creating an area. We also want to unsubscribe if the user leaves that screen. Another reason, is an operation like rename or select, we have the area id but in mapbox you can list all areas, not just one so we needed a way to abstract this.
 
 ### Examples
 The sample project that comes with the library shows most operations available with the library.
