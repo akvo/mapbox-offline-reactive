@@ -56,7 +56,7 @@ In [Akvo Flow App](https://github.com/akvo/akvo-flow-mobile), we try to use [Cle
 ### Examples
 The sample project that comes with the library shows most operations available with the library.
 
-#### Create area
+##### Create area
 
 ```
 //create some dummy area bounds
@@ -86,7 +86,7 @@ val subscribeWith = createOfflineArea.execute(url, bounds, pixelRatio, zoom, reg
 disposables.add(subscribeWith)
 ```
 
-#### Rename area
+##### Rename area
 
 ```
 val subscribeWith = RenameOfflineRegion(this, RegionNameMapper()).execute(id, randomName())
@@ -103,7 +103,7 @@ val subscribeWith = RenameOfflineRegion(this, RegionNameMapper()).execute(id, ra
 disposables.add(subscribeWith)
 ```
 
-#### Delete Area
+##### Delete Area
 
 ```
 val subscribeWith = DeleteOfflineRegion(this).execute(id)
@@ -120,7 +120,7 @@ val subscribeWith = DeleteOfflineRegion(this).execute(id)
 disposables.add(subscribeWith)
 ```
 
-#### List all areas
+##### List all areas
 
 ```
 val subscribeWith = GetOfflineRegions(this).execute()
