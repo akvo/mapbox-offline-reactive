@@ -8,7 +8,7 @@ In [our Flow mobile app](https://github.com/akvo/akvo-flow-mobile), we use [Mapb
   * Delete an area
   * Select an area to use (the map will be centered on that area)
   
-The [Mapbox SDK[(https://docs.mapbox.com/android/maps/overview/offline/) provides methods and classes to handle offline areas. Here is for example how we would download an area:
+The [Mapbox SDK](https://docs.mapbox.com/android/maps/overview/offline/) provides methods and classes to handle offline areas. Here is for example how we would download an area:
 
 ```
 // Create the region asynchronously
