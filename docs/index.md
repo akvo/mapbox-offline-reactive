@@ -138,5 +138,7 @@ disposables.add(subscribeWith)
 
 ### Going Further
 The Mapbox team has also another library, the [offline plugin](https://docs.mapbox.com/android/plugins/overview/offline/) which allows to download maps using a background service but for our case it was not convenient, as we wanted more control over how the maps were downloaded.
+
 Since the begginning of writing this library, [Kotlin couroutines](https://developer.android.com/kotlin/coroutines) have been released and may be a better option instead of RXJava.
-Here is a very interesting presentation by Tom Hanley which really inspired me https://www.youtube.com/watch?v=fZiKikaOCNU&feature=youtu.be
+
+Here is a very interesting [KotlinConf talk](https://www.youtube.com/watch?v=yaw0m9KpA8Q) by Tom Hanley which really inspired me.
