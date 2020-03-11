@@ -29,3 +29,6 @@ See [MainActivity](https://github.com/akvo/mapbox-offline-reactive/blob/master/a
   * list existing areas
   * delete area
   * rename area
+
+Check out this blog post for more details about the library and our motivation to write it:
+https://akvo.github.io/mapbox-offline-reactive/
